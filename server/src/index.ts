@@ -7,12 +7,25 @@ import userRoutes from "./routes/user.routes";
 
 const app = express();
 
-app.use(cors());
+/* CORS CONFIGURATION */
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://job-application-tracker-phi-three.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
 app.use(express.json());
 
+/* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/api", userRoutes);
 
+/* HEALTH CHECK */
 app.get("/", (req, res) => {
   res.send("Job Application Tracker API is running 🚀");
 });
