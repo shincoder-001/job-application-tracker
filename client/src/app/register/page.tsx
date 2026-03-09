@@ -15,7 +15,7 @@ export default function RegisterPage() {
     e.preventDefault();
 
     try {
-      await API.post("/auth/register", {
+      const res = await API.post("/auth/register", {
         name,
         email,
         password,
@@ -25,20 +25,23 @@ export default function RegisterPage() {
 
       router.push("/login");
 
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert("Registration failed");
+
+      if (error.response) {
+        alert(error.response.data.message || "Registration failed");
+      } else {
+        alert("Server not responding (Render may be waking up)");
+      }
     }
   };
 
   return (
     <div className="flex items-center justify-center h-screen">
-
       <form
         onSubmit={handleRegister}
         className="flex flex-col gap-4 p-6 border rounded w-96"
       >
-
         <h1 className="text-xl font-bold">Register</h1>
 
         <input
@@ -66,9 +69,7 @@ export default function RegisterPage() {
         <button className="bg-black text-white p-2">
           Register
         </button>
-
       </form>
-
     </div>
   );
 }

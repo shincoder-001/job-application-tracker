@@ -12,7 +12,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://job-application-tracker-phi-three.vercel.app"
+      "https://job-application-tracker-phi-three.vercel.app",
+      "https://job-application-tracker.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true

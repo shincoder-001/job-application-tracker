@@ -23,9 +23,14 @@ export default function LoginPage() {
 
       router.push("/dashboard");
 
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert("Login failed");
+
+      if (error.response) {
+        alert(error.response.data.message || "Login failed");
+      } else {
+        alert("Server not responding (Render may be waking up)");
+      }
     }
   };
 
@@ -57,14 +62,12 @@ export default function LoginPage() {
           Login
         </button>
 
-        {/* Register link */}
         <p className="text-sm text-center mt-2">
           Don't have an account?{" "}
           <a href="/register" className="text-blue-500">
             Register
           </a>
         </p>
-
       </form>
     </div>
   );
